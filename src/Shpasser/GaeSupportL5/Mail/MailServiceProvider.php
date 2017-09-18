@@ -15,7 +15,7 @@ class MailServiceProvider extends IlluminateMailServiceProvider
     protected function registerSwiftTransport()
     {
         if ($this->app->isRunningOnGae()) {
-            $this->app['swift.transport'] = $this->app->share(function ($app) {
+            $this->app->singleton('swift.transport', function ($app) {
                 return new GaeTransportManager($app);
             });
         } else {
